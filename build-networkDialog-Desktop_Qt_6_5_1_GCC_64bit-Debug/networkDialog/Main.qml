@@ -6,6 +6,7 @@ ApplicationWindow {
     id: appWindow
     visible: true
     title: qsTr("Network - IP address")
+    font.bold: true
     readonly property int margin: 11
 
     Component.onCompleted: {
@@ -96,27 +97,89 @@ ApplicationWindow {
                     anchors.fill: parent
                     Layout.fillWidth: true
 
-                    Label { text: qsTr("Connection") }
-                    Label { text: qsTr("Network card") }
-                    Label { text: qsTr("Configuration type") }
-                    Label { text: qsTr("Network mask") }
-                    Label { text: qsTr("Router") }
-                    Label { text: qsTr("Nameserver") }
-                    Label { text: qsTr("IP address") }
-                    Label { text: qsTr("WiFi SSID") }
-                    Label { text: qsTr("Security") }
-                    Label { text: qsTr("WPA/WPA2 key") }
-                    Label { text: qsTr("Identity") }
-                    Label { text: qsTr("Password") }
-                    Label { text: qsTr("") }
+                    Label {
+                        text: qsTr("Connection")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Network card")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Configuration type")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Network mask")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Router")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Nameserver")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("IP address")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("WiFi SSID")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Security")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("WPA/WPA2 key")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Identity")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("Password")
+                        font.bold: true
+                    }
+
+                    Label {
+                        text: qsTr("")
+                        font.bold: true
+                    }
 
                     RowLayout {
                         Label {
                             text: qsTr("Active")
+                            font.bold: true
+                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    checkBox.checked = !checkBox.checked
+                                }
+                            }
                         }
 
                         CheckBox {
-                            leftPadding: 50
+                            id: checkBox
+                            scale: 1.5
+                            Layout.alignment: Qt.AlignVCenter
                         }
                     }
                 }
@@ -150,6 +213,7 @@ ApplicationWindow {
                         placeholderText: "AUTOMATIC"
                         Layout.fillWidth: true
                     }
+
                     TextField {
                         placeholderText: "255.255.255.0"
                         Layout.fillWidth: true
@@ -198,6 +262,7 @@ ApplicationWindow {
                         id: setupWPA
                         Layout.fillWidth: true
                         text: qsTr("Setup WPA auto")
+                        font.bold: true
                         onClicked: stackLayout.advance()
                     }
 
@@ -205,6 +270,7 @@ ApplicationWindow {
                         id: otherIP
                         Layout.fillWidth: true
                         text: qsTr("Other IP's")
+                        font.bold: true
                         onClicked: stackLayout.advance()
                     }
                 }
@@ -268,4 +334,3 @@ ApplicationWindow {
         }
     }
 }
-
