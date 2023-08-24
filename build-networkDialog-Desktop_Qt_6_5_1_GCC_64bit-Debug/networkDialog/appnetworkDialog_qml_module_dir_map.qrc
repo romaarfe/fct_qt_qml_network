@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/networkDialog">/home/administrator/Formacao/Projeto/QML/build-networkDialog-Desktop_Qt_6_5_1_GCC_64bit-Debug/networkDialog</file>
+
+  </qresource>
+</RCC>
