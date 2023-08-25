@@ -4,10 +4,10 @@ import QtQuick.Controls
 
 ApplicationWindow {
     id: appWindow
-    visible: true
     title: qsTr("Network - IP address")
-    font.bold: true
     readonly property int margin: 11
+
+    visible: true
 
     Component.onCompleted: {
         width = mainLayout.implicitWidth + 2 * margin
@@ -16,6 +16,22 @@ ApplicationWindow {
 
     minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
     minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
+
+    function clearFields() {
+        connection.text = "";
+        networkCard.text = "";
+        configurationType.text = "";
+        networkMask.text = "";
+        router.text = "";
+        nameserver.text = "";
+        ipAddress.text = "";
+        wifiSsid.text = "";
+        security.text = "";
+        wpaKey.text = "";
+        identity.text = "";
+        password.text = "";
+        activeCheckBox.checked = false;
+    }
 
     ColumnLayout {
         id: mainLayout
@@ -29,6 +45,7 @@ ApplicationWindow {
             GroupBox {
                 id: leftBox
                 title: qsTr("Connections")
+                font.bold: true
                 Layout.fillHeight: true
                 Layout.preferredWidth: 220
                 Layout.minimumHeight: Layout.minimumHeight + 50
@@ -38,20 +55,17 @@ ApplicationWindow {
                     anchors.fill: parent
 
                     ComboBox {
-                       id: combo
-                       textRole: "text"
-                       valueRole: "value"
-                       Layout.fillWidth: true
-                       implicitContentWidthPolicy: ComboBox.ContentItemImplicitWidth
+                        id: combo
+                        font.bold: true
+                        textRole: "text"
+                        valueRole: "value"
+                        Layout.fillWidth: true
+                        implicitContentWidthPolicy: ComboBox.ContentItemImplicitWidth
+                        onActivated: backend.modifier = combo.currentValue
 
-                       onActivated: backend.modifier = currentValue
-
-                       Component.onCompleted: currentIndex = indexOfValue(backend.modifier)
-                       model: [
-                           { value: Qt.NoConnection, text: qsTr("No Internet Connection") },
-                           { value: Qt.FirstConnection, text: qsTr("Ethernet Connection") },
-                           { value: Qt.SecondConnection, text: qsTr("Wireless Connection") }
-                        ]
+                        model: ListModel {
+                            ListElement{text: qsTr("No Internet Connection")}
+                        }
                     }
 
                     Item {
@@ -60,24 +74,35 @@ ApplicationWindow {
                     }
 
                     Button {
-                        id: newConn
+                        id: newConnection
                         Layout.fillWidth: true
                         text: qsTr("New Connection")
-                        onClicked: stackLayout.advance()
+                        font.bold: true
+                        onClicked: {
+                            combo.model.append({text: qsTr(connection.text)});
+                            clearFields();
+                        }
                     }
 
                     Button {
-                        id: eliminateConn
+                        id: eliminateConnection
                         Layout.fillWidth: true
                         text: qsTr("Eliminate")
-                        onClicked: stackLayout.advance()
+                        font.bold: true
+                        onClicked: {
+                            combo.model.remove(combo.currentIndex);
+                            clearFields();
+                        }
                     }
 
                     Button {
-                        id: applyConn
+                        id: applyConnection
                         Layout.fillWidth: true
                         text: qsTr("Apply")
-                        onClicked: stackLayout.advance()
+                        font.bold: true
+                        onClicked: {
+                            clearFields();
+                        }
                     }
                 }
             }
@@ -86,7 +111,7 @@ ApplicationWindow {
                 id: centerBox
                 title: qsTr(" ")
                 Layout.fillHeight: true
-                Layout.preferredWidth: 220
+                Layout.preferredWidth: 160
                 Layout.minimumHeight: Layout.minimumHeight + 50
                 Layout.minimumWidth: Layout.minimumWidth + 50
 
@@ -166,20 +191,20 @@ ApplicationWindow {
                         Label {
                             text: qsTr("Active")
                             font.bold: true
-                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                            Layout.alignment: Qt.AlignLeft
 
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    checkBox.checked = !checkBox.checked
+                                    activeCheckBox.checked = !activeCheckBox.checked
                                 }
                             }
                         }
 
                         CheckBox {
-                            id: checkBox
+                            id: activeCheckBox
                             scale: 1.5
-                            Layout.alignment: Qt.AlignVCenter
+                            spacing: 50
                         }
                     }
                 }
@@ -200,66 +225,81 @@ ApplicationWindow {
                     anchors.fill: parent
 
                     TextField {
-                        placeholderText: "802-3-ethernet connection"
+                        id:  connection
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "enp6s0"
+                        id: networkCard
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "AUTOMATIC"
+                        id: configurationType
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "255.255.255.0"
+                        id: networkMask
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "10.5.0.254"
+                        id: router
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "10.99.202.1"
+                        id: nameserver
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "10.5.0.85"
+                        id: ipAddress
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
+                        id: wifiSsid
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
+                        id: security
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "*******"
+                        id: wpaKey
+                        text: qsTr("")
                         echoMode: TextInput.Password
                         Layout.fillWidth: true
                     }
 
                     TextField {
+                        id: identity
+                        text: qsTr("")
                         Layout.fillWidth: true
                     }
 
                     TextField {
-                        placeholderText: "*******"
+                        id: password
+                        text: qsTr("")
                         echoMode: TextInput.Password
                         Layout.fillWidth: true
                     }
 
                     Button {
-                        id: setupWPA
+                        id: setupWpa
                         Layout.fillWidth: true
                         text: qsTr("Setup WPA auto")
                         font.bold: true
@@ -267,7 +307,7 @@ ApplicationWindow {
                     }
 
                     Button {
-                        id: otherIP
+                        id: otherIp
                         Layout.fillWidth: true
                         text: qsTr("Other IP's")
                         font.bold: true
@@ -334,3 +374,4 @@ ApplicationWindow {
         }
     }
 }
+
