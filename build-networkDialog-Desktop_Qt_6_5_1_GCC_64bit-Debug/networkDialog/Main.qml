@@ -5,17 +5,9 @@ import QtQuick.Controls
 ApplicationWindow {
     id: appWindow
     title: qsTr("Network - IP address")
-    readonly property int margin: 11
-
     visible: true
 
-    Component.onCompleted: {
-        width = mainLayout.implicitWidth + 2 * margin
-        height = mainLayout.implicitHeight + 2 * margin
-    }
-
-    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
-    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
+    readonly property int margin: 11
 
     function clearFields() {
         connection.text = "";
@@ -32,6 +24,14 @@ ApplicationWindow {
         password.text = "";
         activeCheckBox.checked = false;
     }
+
+    Component.onCompleted: {
+        width = mainLayout.implicitWidth + 2 * margin
+        height = mainLayout.implicitHeight + 2 * margin
+    }
+
+    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
+    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
 
     ColumnLayout {
         id: mainLayout
@@ -79,7 +79,6 @@ ApplicationWindow {
                         text: qsTr("New Connection")
                         font.bold: true
                         onClicked: {
-                            combo.model.append({text: qsTr(connection.text)});
                             clearFields();
                         }
                     }
@@ -90,8 +89,9 @@ ApplicationWindow {
                         text: qsTr("Eliminate")
                         font.bold: true
                         onClicked: {
-                            combo.model.remove(combo.currentIndex);
-                            clearFields();
+                            if (combo.currentIndex !== 0) {
+                                combo.model.remove(combo.currentIndex);
+                            }
                         }
                     }
 
@@ -101,7 +101,9 @@ ApplicationWindow {
                         text: qsTr("Apply")
                         font.bold: true
                         onClicked: {
-                            clearFields();
+                            if (connection.text !== "") {
+                                combo.model.append({text: qsTr(connection.text)});
+                            }
                         }
                     }
                 }
@@ -182,9 +184,8 @@ ApplicationWindow {
                         font.bold: true
                     }
 
-                    Label {
-                        text: qsTr("")
-                        font.bold: true
+                    Item {
+                        height: 5
                     }
 
                     RowLayout {
@@ -323,7 +324,6 @@ ApplicationWindow {
 
             GroupBox {
                 id: bottomBox
-                title: qsTr(" ")
                 Layout.fillWidth: true
                 Layout.minimumHeight: Layout.minimumHeight + 50
                 Layout.minimumWidth: Layout.minimumWidth + 50
@@ -338,34 +338,34 @@ ApplicationWindow {
 
                     Button {
                         id: buttonCancel
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: 40
                         Layout.fillWidth: true
-                        onClicked: stackLayout.advance()
+                        onClicked: appWindow.close()
 
                         contentItem: Text {
-                            text: qsTr("X")
+                            text: qsTr("❌")
                             font.bold: true
                             color: "red"
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 30
+                            font.pixelSize: 25
                             anchors.centerIn: parent
                         }
                     }
 
                     Button {
                         id: buttonOk
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: 40
                         Layout.fillWidth: true
-                        onClicked: stackLayout.advance()
+                        onClicked: appWindow.close()
 
                         contentItem: Text {
-                            text: qsTr("V")
-                            font.bold: true
+                            text: qsTr("✔️")
+                            font.bold: false
                             color: "green"
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 30
+                            font.pixelSize: 45
                             anchors.centerIn: parent
                         }
                     }
@@ -374,4 +374,3 @@ ApplicationWindow {
         }
     }
 }
-
