@@ -23,6 +23,7 @@
 - CMake
 - QT Framework
 - QML
+- Javascript
 
 ---
 ##### 👨‍💻 Desenvolvido na SDILAB - Research & Software Development 
