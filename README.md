@@ -11,8 +11,9 @@
 - [ ] Salvar informações alteradas
 - [ ] Cancelar e retornar ao menu principal
 - [ ] Alterar projeto para outro formato/estilo/tema
-- [ ] Implementar código de ação QML
+- [x] Implementar código de ação QML
 - [ ] Implementar código de ação C++
+- [x] Implementar código de ação em Javascript
 - [ ] Integrar com Sistema Operativo
 
 ---
