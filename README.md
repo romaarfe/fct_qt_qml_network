@@ -6,6 +6,7 @@
 #### ⚙️ ETAPAS / FUNCIONALIDADES:
 
 - [x] Criação de uma Dialog com QML no QT
+- [ ] Btões e caixas de texto com atução
 - [ ] Criar um menu com botões para acessar novas janelas
 - [x] Permitir inserir informações por textbox
 - [ ] Salvar informações alteradas
