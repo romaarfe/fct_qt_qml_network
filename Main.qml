@@ -5,9 +5,16 @@ import QtQuick.Controls
 ApplicationWindow {
     id: appWindow
     title: qsTr("Network - IP address")
+    readonly property int margin: 11
     visible: true
 
-    readonly property int margin: 11
+    Component.onCompleted: {
+        width = mainLayout.implicitWidth + 2 * margin
+        height = mainLayout.implicitHeight + 2 * margin
+    }
+
+    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
+    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
 
     function clearFields() {
         connection.text = "";
@@ -25,13 +32,10 @@ ApplicationWindow {
         activeCheckBox.checked = false;
     }
 
-    Component.onCompleted: {
-        width = mainLayout.implicitWidth + 2 * margin
-        height = mainLayout.implicitHeight + 2 * margin
+    ListModel {
+        id: dataModel
     }
 
-    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
-    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
 
     ColumnLayout {
         id: mainLayout
@@ -40,7 +44,7 @@ ApplicationWindow {
 
         RowLayout {
             Layout.fillHeight: true
-            anchors.fill: parent
+//                anchors.fill: parent
 
             GroupBox {
                 id: leftBox
@@ -48,8 +52,8 @@ ApplicationWindow {
                 font.bold: true
                 Layout.fillHeight: true
                 Layout.preferredWidth: 220
-                Layout.minimumHeight: Layout.minimumHeight + 50
-                Layout.minimumWidth: Layout.minimumWidth + 50
+//                    Layout.minimumHeight: Layout.minimumHeight + 50
+//                    Layout.minimumWidth: Layout.minimumWidth + 50
 
                 ColumnLayout {
                     anchors.fill: parent
@@ -57,14 +61,27 @@ ApplicationWindow {
                     ComboBox {
                         id: combo
                         font.bold: true
-                        textRole: "text"
-                        valueRole: "value"
                         Layout.fillWidth: true
                         implicitContentWidthPolicy: ComboBox.ContentItemImplicitWidth
-                        onActivated: backend.modifier = combo.currentValue
+                        //onActivated: backend.modifier = combo.currentValue
 
-                        model: ListModel {
-                            ListElement{text: qsTr("No Internet Connection")}
+                        model: dataModel
+                        textRole: "connection"
+
+                        onCurrentTextChanged: {
+                            connection.text = dataModel.get(combo.currentIndex).connection;
+                            networkCard.text = dataModel.get(combo.currentIndex).networkCard;
+                            configurationType.text = dataModel.get(combo.currentIndex).configurationType;
+                            networkMask.text = dataModel.get(combo.currentIndex).networkMask;
+                            router.text = dataModel.get(combo.currentIndex).router;
+                            nameserver.text = dataModel.get(combo.currentIndex).nameserver;
+                            ipAddress.text = dataModel.get(combo.currentIndex).ipAddress;
+                            wifiSsid.text = dataModel.get(combo.currentIndex).wifiSsid;
+                            security.text = dataModel.get(combo.currentIndex).security;
+                            wpaKey.text = dataModel.get(combo.currentIndex).wpaKey;
+                            identity.text = dataModel.get(combo.currentIndex).identity;
+                            password.text = dataModel.get(combo.currentIndex).password;
+                            activeCheckBox.checked = dataModel.get(combo.currentIndex).activeCheckBox
                         }
                     }
 
@@ -89,9 +106,9 @@ ApplicationWindow {
                         text: qsTr("Eliminate")
                         font.bold: true
                         onClicked: {
-                            if (combo.currentIndex !== 0) {
-                                combo.model.remove(combo.currentIndex);
-                            }
+                            dataModel.remove(combo.currentIndex);
+                            clearFields();
+                            combo.currentIndex = dataModel.count
                         }
                     }
 
@@ -102,7 +119,23 @@ ApplicationWindow {
                         font.bold: true
                         onClicked: {
                             if (connection.text !== "") {
-                                combo.model.append({text: qsTr(connection.text)});
+                                dataModel.append({
+                                                     connection: connection.text,
+                                                     networkCard: networkCard.text,
+                                                     configurationType: configurationType.text,
+                                                     networkMask: networkMask.text,
+                                                     router: router.text,
+                                                     nameserver: nameserver.text,
+                                                     ipAddress: ipAddress.text,
+                                                     wifiSsid: wifiSsid.text,
+                                                     security: security.text,
+                                                     wpaKey: wpaKey.text,
+                                                     identity: identity.text,
+                                                     password: password.text,
+                                                     activeCheckBox: activeCheckBox.checked
+                                                 });
+                                clearFields();
+                                combo.currentIndex = dataModel.count -1
                             }
                         }
                     }
@@ -114,8 +147,8 @@ ApplicationWindow {
                 title: qsTr(" ")
                 Layout.fillHeight: true
                 Layout.preferredWidth: 160
-                Layout.minimumHeight: Layout.minimumHeight + 50
-                Layout.minimumWidth: Layout.minimumWidth + 50
+//                    Layout.minimumHeight: Layout.minimumHeight + 50
+//                    Layout.minimumWidth: Layout.minimumWidth + 50
 
                 GridLayout {
                     id: centerLayout
@@ -216,8 +249,8 @@ ApplicationWindow {
                 title: qsTr(" ")
                 Layout.fillHeight: true
                 Layout.preferredWidth: 220
-                Layout.minimumHeight: Layout.minimumHeight + 50
-                Layout.minimumWidth: Layout.minimumWidth + 50
+//                    Layout.minimumHeight: Layout.minimumHeight + 50
+//                    Layout.minimumWidth: Layout.minimumWidth + 50
 
                 GridLayout {
                     id: rightLayout
@@ -325,8 +358,8 @@ ApplicationWindow {
             GroupBox {
                 id: bottomBox
                 Layout.fillWidth: true
-                Layout.minimumHeight: Layout.minimumHeight + 50
-                Layout.minimumWidth: Layout.minimumWidth + 50
+//                    Layout.minimumHeight: Layout.minimumHeight + 50
+//                    Layout.minimumWidth: Layout.minimumWidth + 50
                 Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
 
                 GridLayout {
@@ -374,3 +407,4 @@ ApplicationWindow {
         }
     }
 }
+
