@@ -1,5 +1,0 @@
-module networkDialog
-typeinfo appnetworkDialog.qmltypes
-prefer :/qt/qml/networkDialog/
-Main 1.0 Main.qml
-
