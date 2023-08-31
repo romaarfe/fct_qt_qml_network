@@ -1,20 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 ApplicationWindow {
     id: appWindow
     title: qsTr("Network - IP address")
     readonly property int margin: 11
+
     visible: true
-
-    Component.onCompleted: {
-        width = mainLayout.implicitWidth + 2 * margin
-        height = mainLayout.implicitHeight + 2 * margin
-    }
-
-    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
-    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
 
     function clearFields() {
         connection.text = "";
@@ -32,10 +26,91 @@ ApplicationWindow {
         activeCheckBox.checked = false;
     }
 
+    function completeFields() {
+        connection.text = dataModel.get(combo.currentIndex).connection;
+        networkCard.text = dataModel.get(combo.currentIndex).networkCard;
+        configurationType.text = dataModel.get(combo.currentIndex).configurationType;
+        networkMask.text = dataModel.get(combo.currentIndex).networkMask;
+        router.text = dataModel.get(combo.currentIndex).router;
+        nameserver.text = dataModel.get(combo.currentIndex).nameserver;
+        ipAddress.text = dataModel.get(combo.currentIndex).ipAddress;
+        wifiSsid.text = dataModel.get(combo.currentIndex).wifiSsid;
+        security.text = dataModel.get(combo.currentIndex).security;
+        wpaKey.text = dataModel.get(combo.currentIndex).wpaKey;
+        identity.text = dataModel.get(combo.currentIndex).identity;
+        password.text = dataModel.get(combo.currentIndex).password;
+        activeCheckBox.checked = dataModel.get(combo.currentIndex).activeCheckBox
+    }
+
+    function registerData() {
+        if (
+            connection.text === "" ||
+            networkCard.text === "" ||
+            configurationType.text === "" ||
+            networkMask.text === "" ||
+            router.text === "" ||
+            nameserver.text === "" ||
+            ipAddress.text === "" ||
+            wifiSsid.text === "" ||
+            security.text === "" ||
+            wpaKey.text === "" ||
+            identity.text === "" ||
+            password.text === ""
+        ) {
+            return messageEmpty.open();
+        }
+
+        var dataModelArray = [];
+        for (var i = 0; i < dataModel.count; i++) {
+            dataModelArray.push(dataModel.get(i));
+        }
+
+        if (dataModelArray.some((item) => item.connection === connection.text)) {
+            messageExists.open();
+        } else {
+            dataModel.append({
+                connection: connection.text,
+                networkCard: networkCard.text,
+                configurationType: configurationType.text,
+                networkMask: networkMask.text,
+                router: router.text,
+                nameserver: nameserver.text,
+                ipAddress: ipAddress.text,
+                wifiSsid: wifiSsid.text,
+                security: security.text,
+                wpaKey: wpaKey.text,
+                identity: identity.text,
+                password: password.text,
+                activeCheckBox: activeCheckBox.checkState,
+            });
+        }
+    }
+
+    MessageDialog {
+        id: messageExists
+        parentWindow: appWindow
+        buttons: MessageDialog.Ok
+        text: "This connection already exists."
+    }
+
+    MessageDialog {
+        id: messageEmpty
+        parentWindow: appWindow
+        buttons: MessageDialog.Ok
+        text: "You have to fill all the empty fields."
+    }
+
+    Component.onCompleted: {
+        width = mainLayout.implicitWidth + 2 * margin
+        height = mainLayout.implicitHeight + 2 * margin
+    }
+
+    minimumWidth: mainLayout.Layout.minimumWidth + 2 * margin
+    minimumHeight: mainLayout.Layout.minimumHeight + 2 * margin
+
     ListModel {
         id: dataModel
     }
-
 
     ColumnLayout {
         id: mainLayout
@@ -69,19 +144,7 @@ ApplicationWindow {
                         textRole: "connection"
 
                         onCurrentTextChanged: {
-                            connection.text = dataModel.get(combo.currentIndex).connection;
-                            networkCard.text = dataModel.get(combo.currentIndex).networkCard;
-                            configurationType.text = dataModel.get(combo.currentIndex).configurationType;
-                            networkMask.text = dataModel.get(combo.currentIndex).networkMask;
-                            router.text = dataModel.get(combo.currentIndex).router;
-                            nameserver.text = dataModel.get(combo.currentIndex).nameserver;
-                            ipAddress.text = dataModel.get(combo.currentIndex).ipAddress;
-                            wifiSsid.text = dataModel.get(combo.currentIndex).wifiSsid;
-                            security.text = dataModel.get(combo.currentIndex).security;
-                            wpaKey.text = dataModel.get(combo.currentIndex).wpaKey;
-                            identity.text = dataModel.get(combo.currentIndex).identity;
-                            password.text = dataModel.get(combo.currentIndex).password;
-                            activeCheckBox.checked = dataModel.get(combo.currentIndex).activeCheckBox
+                            completeFields();
                         }
                     }
 
@@ -106,7 +169,7 @@ ApplicationWindow {
                         text: qsTr("Eliminate")
                         font.bold: true
                         onClicked: {
-                            dataModel.remove(combo.currentIndex);
+                            combo.model.remove(combo.currentIndex);
                             clearFields();
                             combo.currentIndex = dataModel.count
                         }
@@ -118,25 +181,9 @@ ApplicationWindow {
                         text: qsTr("Apply")
                         font.bold: true
                         onClicked: {
-                            if (connection.text !== "") {
-                                dataModel.append({
-                                                     connection: connection.text,
-                                                     networkCard: networkCard.text,
-                                                     configurationType: configurationType.text,
-                                                     networkMask: networkMask.text,
-                                                     router: router.text,
-                                                     nameserver: nameserver.text,
-                                                     ipAddress: ipAddress.text,
-                                                     wifiSsid: wifiSsid.text,
-                                                     security: security.text,
-                                                     wpaKey: wpaKey.text,
-                                                     identity: identity.text,
-                                                     password: password.text,
-                                                     activeCheckBox: activeCheckBox.checked
-                                                 });
-                                clearFields();
-                                combo.currentIndex = dataModel.count -1
-                            }
+                            registerData();
+                            clearFields();
+                            combo.currentIndex = dataModel.count -1
                         }
                     }
                 }
@@ -373,7 +420,10 @@ ApplicationWindow {
                         id: buttonCancel
                         Layout.preferredHeight: 40
                         Layout.fillWidth: true
-                        onClicked: appWindow.close()
+                        onClicked: {
+                            console.log("Close without save")
+                            appWindow.close()
+                        }
 
                         contentItem: Text {
                             text: qsTr("❌")
@@ -390,7 +440,10 @@ ApplicationWindow {
                         id: buttonOk
                         Layout.preferredHeight: 40
                         Layout.fillWidth: true
-                        onClicked: appWindow.close()
+                        onClicked: {
+                            console.log("Close saving")
+                            appWindow.close()
+                        }
 
                         contentItem: Text {
                             text: qsTr("✔️")
