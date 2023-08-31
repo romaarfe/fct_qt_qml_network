@@ -10,12 +10,12 @@
 - [ ] Criar um menu com botões para acessar novas janelas
 - [x] Permitir inserir informações por textbox
 - [x] Salvar informações alteradas
-- [ ] Cancelar e retornar ao menu principal
+- [x] Cancelar e retornar ao menu principal
 - [ ] Alterar projeto para outro formato/estilo/tema
 - [x] Implementar código de ação QML
-- [ ] Implementar código de ação C++
+- [x] Implementar código de ação C++ (privado)
 - [x] Implementar código de ação em Javascript
-- [ ] Integrar com Sistema Operativo
+- [x] Integrar com Sistema Operativo (privado)
 
 ---
 #### 🔧 FERRAMENTAS / TECNOLOGIAS:
