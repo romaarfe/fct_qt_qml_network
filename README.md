@@ -9,7 +9,7 @@
 - [x] Botões e caixas de texto com atuação
 - [ ] Criar um menu com botões para acessar novas janelas
 - [x] Permitir inserir informações por textbox
-- [ ] Salvar informações alteradas
+- [x] Salvar informações alteradas
 - [ ] Cancelar e retornar ao menu principal
 - [ ] Alterar projeto para outro formato/estilo/tema
 - [x] Implementar código de ação QML
