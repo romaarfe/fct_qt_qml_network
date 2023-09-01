@@ -23,6 +23,7 @@
 - C
 - C++
 - CMake
+- QT Creator
 - QT Framework
 - QML
 - Javascript
