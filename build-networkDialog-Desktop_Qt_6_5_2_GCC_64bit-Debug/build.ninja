@@ -403,7 +403,7 @@ build .qt_plugins/Qt6_QmlPlugins_Imports_appnetworkDialog.cmake | ${cmake_ninja_
 #############################################
 # Phony custom command for CMakeFiles/appnetworkDialog_autogen_timestamp_deps
 
-build CMakeFiles/appnetworkDialog_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/appnetworkDialog_autogen_timestamp_deps: phony .rcc/qmlcache/appnetworkDialog_qmlcache_loader.cpp /home/administrator/Qt/6.5.2/gcc_64/lib/libQt6Qml.so.6.5.2 /home/administrator/Qt/6.5.2/gcc_64/./libexec/moc /home/administrator/Qt/6.5.2/gcc_64/lib/libQt6Quick.so.6.5.2
+build CMakeFiles/appnetworkDialog_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/appnetworkDialog_autogen_timestamp_deps: phony .rcc/qmlcache/appnetworkDialog_qmlcache_loader.cpp /home/administrator/Qt/6.5.2/gcc_64/./libexec/moc /home/administrator/Qt/6.5.2/gcc_64/lib/libQt6Qml.so.6.5.2 /home/administrator/Qt/6.5.2/gcc_64/lib/libQt6Quick.so.6.5.2
 
 
 #############################################
