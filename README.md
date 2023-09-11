@@ -14,8 +14,9 @@
 - [ ] Alterar projeto para outro formato/estilo/tema
 - [x] Implementar código QML (recepção de informações do backend e preenchimento das textfields e combobox, além de desenho da interface gráfica)
 - [x] Implementar código C++ (utilização de classes que se conectam com o front para após detectar automaticamente as conexões, passar a enviar informaçoes)
-- [x] Integrar com C++
-- [x] Implementar código de ação em Javascript
+- [x] Utilizar signals e properties para gerar essa comunicação de duas vias
+- [x] Integrar backend e frontend
+- [x] Implementar código em Javascript para funções pontuais
 - [x] Integrar com Sistema Operativo (privado)
 
 ---
