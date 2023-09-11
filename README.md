@@ -12,8 +12,8 @@
 - [x] Salvar informações alteradas
 - [x] Cancelar e retornar ao menu principal
 - [ ] Alterar projeto para outro formato/estilo/tema
-- [x] Implementar código de ação QML (recepção de informações do backend e preenchimento das textfields e combobox)
-- [x] Implementar código de ação C++ (utilização de classes que se conectam com o front para após detectar automaticamente as conexões, passar a enviar informaçoes)
+- [x] Implementar código QML (recepção de informações do backend e preenchimento das textfields e combobox, além de desenho da interface gráfica)
+- [x] Implementar código C++ (utilização de classes que se conectam com o front para após detectar automaticamente as conexões, passar a enviar informaçoes)
 - [x] Integrar com C++
 - [x] Implementar código de ação em Javascript
 - [x] Integrar com Sistema Operativo (privado)
