@@ -85,6 +85,7 @@ Rectangle {
         id: appWindow
         title: qsTr("Network - IP address")
         readonly property int margin: 11
+        visible: true
 
         Component.onCompleted: {
             width = mainLayout.implicitWidth + 2 * margin
@@ -127,6 +128,8 @@ Rectangle {
                             id: combo
                             font.bold: true
                             Layout.fillWidth: true
+                            //textRole: "text"
+                            //valueRole: "value"
                             implicitContentWidthPolicy: ComboBox.ContentItemImplicitWidth
                             model: mainDialog.comboBoxItems
                             currentIndex: mainDialog.comboBoxCurrentIndex
