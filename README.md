@@ -21,6 +21,11 @@
 - [x] Gerar detecção da presença de usb (entrada e retirada)
 
 ---
+### 📢 NOTAS:
+
+- Aqui está apenas uma parte do projeto, o que de fato eu fiz e executei. Não que não existam outras partes feitas por mim, mas que por incluir código de outras pessoas e da própria empresa em questão, não seria ético e justo que eu disponibilizasse aqui.
+  
+---
 #### 🔧 FERRAMENTAS / TECNOLOGIAS:
 
 - C
