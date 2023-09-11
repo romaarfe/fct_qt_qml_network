@@ -18,6 +18,7 @@
 - [x] Integrar backend e frontend
 - [x] Implementar código em Javascript para funções pontuais
 - [x] Integrar com Sistema Operativo (privado)
+- [x] Gerar detecção da presença de usb (entrada e retirada)
 
 ---
 #### 🔧 FERRAMENTAS / TECNOLOGIAS:
